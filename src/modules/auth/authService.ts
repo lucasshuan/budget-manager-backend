@@ -14,7 +14,8 @@ class AuthService {
     if (!passwordMatch) throw new Error("Usuário ou senha inválido");
 
     const payload = { id: user.id, email: user.email };
-    const token = jwt.sign(payload, "secret", {
+    const secret = process.env.JWT_SECRET ?? "";
+    const token = jwt.sign(payload, secret, {
       expiresIn: "1d",
     });
 
