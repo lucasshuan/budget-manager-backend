@@ -15,8 +15,12 @@ function authMiddleware(req: Request, res: Response, next: NextFunction) {
   const token = req.headers.authorization.split(" ")[1];
   const decoded = jwt.verify(token, secret) as TokenPayload;
 
-  if (!decoded) {
+  if (!decoded || !decoded.id || !decoded.email) {
     return res.status(401).json({ error: "Token inválido" });
+  }
+
+  if (decoded.exp && decoded.exp < Date.now() / 1000) {
+    return res.status(401).json({ error: "Token expirado" });
   }
 
   req.user = {
