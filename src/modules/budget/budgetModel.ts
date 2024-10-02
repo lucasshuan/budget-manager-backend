@@ -24,4 +24,8 @@ export interface IUpdateBudgetDTO {
   status: BudgetStatus;
 }
 
+export interface IAcceptBudgetDTO {
+  id: number;
+}
+
 export type IUpdateBudgetArgs = Pick<Budget, "id" | "status">;

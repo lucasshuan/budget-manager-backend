@@ -33,6 +33,18 @@ class BudgetRepository {
   }
 
   async create({ customerId, expenditures }: ICreateBudgetDTO) {
+    const budget = await prisma.budget.create({
+      data: {
+        expenditures: {
+          createMany: {
+            data: expenditures,
+          },
+        },
+      },
+    });
+  }
+
+  async accept() {
     const budget = await prisma.$transaction(async (tx) => {
       const newBudget = await tx.budget.create({
         data: {
