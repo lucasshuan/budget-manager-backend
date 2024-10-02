@@ -18,4 +18,9 @@ app.use(express.json({ limit: "1mb" }));
 
 app.use(routes);
 
-app.listen(port, () => console.log(`🚀 Iniciado em http://localhost:${port}/`));
+app.listen(port, () => {
+  console.log(`🚀 Iniciado em http://localhost:${port}/`);
+  console.log(
+    "📒 Documentação: https://documenter.getpostman.com/view/33172405/2sAXxLAtEU"
+  );
+});
