@@ -1,4 +1,4 @@
-import { CustomError } from "../../http/error";
+import { CustomError } from "../../utils/error";
 import userService from "../user/userService";
 import { LoginDTO, RegisterDTO } from "./authModel";
 import bcrypt from "bcrypt";

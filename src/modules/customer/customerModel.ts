@@ -4,6 +4,5 @@ export interface ICreateCustomerDTO {
 }
 export interface IUpdateCustomerDTO {
   id: number;
-  userId: number;
   name: string;
 }
