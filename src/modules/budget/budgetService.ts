@@ -1,5 +1,6 @@
 import { prisma } from "../../database";
 import { CustomError } from "../../utils/error";
+import customerService from "../customer/customerService";
 import { ICreateBudgetDTO, IUpdateBudgetDTO } from "./budgetModel";
 import budgetRepository from "./budgetRepository";
 
@@ -23,6 +24,11 @@ class BudgetService {
   }
 
   async create(input: ICreateBudgetDTO) {
+    const customerBelongsToUser = await customerService.belongsToUser(
+      input.customerId,
+      input.userId
+    );
+    if (!customerBelongsToUser) throw new CustomError(404, "Cliente inválido");
     const budget = await budgetRepository.create(input);
     return budget;
   }

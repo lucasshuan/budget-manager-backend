@@ -14,6 +14,13 @@ class CustomerService {
     return customer;
   }
 
+  async belongsToUser(id: number, userId: number) {
+    const customer = await customerRepository.findById(id);
+    if (!customer) throw new CustomError(404, "Cliente não encontrado");
+    if (customer.userId !== userId) return false;
+    return true;
+  }
+
   async create(input: ICreateCustomerDTO) {
     const customer = await customerRepository.create(input);
     return customer;

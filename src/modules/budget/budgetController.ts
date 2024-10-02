@@ -17,7 +17,10 @@ class BudgetController {
 
   async create(req: Request, res: Response) {
     const input = await createBudgetSchema.validateAsync(req.body);
-    const budget = await budgetService.create(input);
+    const budget = await budgetService.create({
+      userId: req.user.id,
+      ...input,
+    });
     res.status(201).json(budget);
   }
 

@@ -15,6 +15,7 @@ interface IBudgetExpenditure {
 
 export interface ICreateBudgetDTO {
   customerId: number;
+  userId: number;
   expenditures: IBudgetExpenditure[];
 }
 

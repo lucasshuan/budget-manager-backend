@@ -1,5 +1,6 @@
 import { prisma } from "../../database";
 import { CustomError } from "../../utils/error";
+import { ICreateComponentDTO, IUpdateComponentDTO } from "./componentModel";
 import componentRepository from "./componentRepository";
 
 class ComponentService {
@@ -15,12 +16,12 @@ class ComponentService {
     return component;
   }
 
-  async create(data: any) {
-    const component = await componentRepository.create({ data });
+  async create(input: ICreateComponentDTO) {
+    const component = await componentRepository.create(input);
     return component;
   }
 
-  async update(input: any) {
+  async update(input: IUpdateComponentDTO) {
     const component = await componentRepository.update(input);
     return component;
   }

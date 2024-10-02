@@ -26,7 +26,10 @@ class BudgetRepository {
   }
 
   async findById(id: number) {
-    return prisma.budget.findUnique({ where: { id } });
+    return prisma.budget.findUnique({
+      where: { id },
+      include: { customer: true, expenditures: true },
+    });
   }
 
   async create({ customerId, expenditures }: ICreateBudgetDTO) {

@@ -8,17 +8,12 @@ export interface ICreateComponentDTO {
 }
 
 export interface IUpdateComponentDTO {
+  id: number;
   name: string;
   price: number;
   description?: string;
 }
 
-export type ICreateComponentArgs = Pick<
-  Component,
-  "userId" | "name" | "price" | "description"
->;
+export type ICreateComponentArgs = ICreateComponentDTO;
 
-export type IUpdateComponentArgs = Pick<
-  Component,
-  "id" | "name" | "price" | "description"
->;
+export type IUpdateComponentArgs = IUpdateComponentDTO;
