@@ -9,6 +9,12 @@ class CustomerController {
     res.status(200).json(customers);
   }
 
+  async findById(req: Request, res: Response) {
+    const id = await idJoi.validateAsync(req.params.id);
+    const customer = await customerService.findById(id);
+    res.status(200).json(customer);
+  }
+
   async create(req: Request, res: Response) {
     const input = await createCustomerSchema.validateAsync(req.body);
     const customer = await customerService.create({

@@ -5,8 +5,9 @@ import { Route } from "../../utils/route";
 const customerRouter = Router();
 
 customerRouter.get("/", Route(customerController.listByUserId));
+customerRouter.get("/:id", Route(customerController.findById));
 customerRouter.post("/", Route(customerController.create));
 customerRouter.put("/:id", Route(customerController.update));
-customerRouter.put("/:id", Route(customerController.delete));
+customerRouter.delete("/:id", Route(customerController.delete));
 
 export default customerRouter;

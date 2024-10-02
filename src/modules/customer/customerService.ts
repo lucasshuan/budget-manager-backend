@@ -1,3 +1,4 @@
+import { CustomError } from "../../utils/error";
 import { ICreateCustomerDTO, IUpdateCustomerDTO } from "./customerModel";
 import customerRepository from "./customerRepository";
 
@@ -9,6 +10,7 @@ class CustomerService {
 
   async findById(id: number) {
     const customer = await customerRepository.findById(id);
+    if (!customer) throw new CustomError(404, "Cliente não encontrado");
     return customer;
   }
 
