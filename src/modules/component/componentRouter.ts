@@ -5,7 +5,7 @@ import authMiddleware from "../../middlewares/auth";
 
 const componentRouter = Router();
 
-componentRouter.get("/user/:userId", Route(componentController.listByUserId));
+componentRouter.get("/", Route(componentController.listByUserId));
 componentRouter.post("/", Route(componentController.create));
 componentRouter.put("/:id", Route(componentController.update));
 componentRouter.put("/:id", Route(componentController.delete));
