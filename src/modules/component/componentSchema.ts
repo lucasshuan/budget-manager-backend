@@ -1,7 +1,7 @@
 import Joi from "joi";
 import { ICreateComponentDTO, IUpdateComponentDTO } from "./componentModel";
 
-export const createComponentSchema = Joi.object<ICreateComponentDTO>({
+export const createComponentSchema = Joi.object({
   name: Joi.string().required().messages({
     "string.base": "'name' deve ser uma string",
     "any.required": "'name' é obrigatório",
@@ -11,7 +11,7 @@ export const createComponentSchema = Joi.object<ICreateComponentDTO>({
   }),
 });
 
-export const updateComponentSchema = Joi.object<IUpdateComponentDTO>({
+export const updateComponentSchema = Joi.object({
   name: Joi.string().optional().messages({
     "string.base": "'name' deve ser uma string",
     "any.required": "'name' é obrigatório",

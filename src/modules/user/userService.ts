@@ -1,6 +1,7 @@
 import { CustomError } from "../../utils/error";
 import { CreateUserDTO } from "./userModel";
 import userRepository from "./userRepository";
+import bcrypt from "bcrypt";
 
 class UserService {
   async findById(id: number) {
@@ -15,8 +16,9 @@ class UserService {
     return user;
   }
 
-  async create(input: CreateUserDTO) {
-    const user = await userRepository.create(input);
+  async create({ password, email }: CreateUserDTO) {
+    const passwordHash = await bcrypt.hash(password, 10);
+    const user = await userRepository.create({ passwordHash, email });
     return user;
   }
 }

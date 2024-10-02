@@ -1,5 +1,5 @@
 import { prisma } from "../../database";
-import { CreateUserDTO } from "./userModel";
+import { CreateUserArgs, CreateUserDTO } from "./userModel";
 
 class UserRepository {
   private selectPublicUser = {
@@ -27,7 +27,7 @@ class UserRepository {
     });
   }
 
-  async create(data: CreateUserDTO) {
+  async create(data: CreateUserArgs) {
     return prisma.user.create({
       data,
       select: this.selectPublicUser,

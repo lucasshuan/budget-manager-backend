@@ -18,17 +18,6 @@ class AuthService {
 
     return { user, token };
   }
-
-  async register({ email, password }: RegisterDTO) {
-    const passwordHash = await bcrypt.hash(password, 10);
-
-    const user = await userService.create({
-      email,
-      passwordHash,
-    });
-
-    return user;
-  }
 }
 
 export default new AuthService();

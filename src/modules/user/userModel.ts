@@ -1,3 +1,8 @@
 import { User } from "@prisma/client";
 
-export type CreateUserDTO = Pick<User, "email" | "passwordHash">;
+export interface CreateUserDTO {
+  email: string;
+  password: string;
+}
+
+export type CreateUserArgs = Pick<User, "email" | "passwordHash">;
