@@ -25,8 +25,9 @@ class BudgetController {
   }
 
   async update(req: Request, res: Response) {
+    const id = await idJoi.validateAsync(req.params.id);
     const input = await updateBudgetSchema.validateAsync(req.body);
-    const budget = await budgetService.update(input);
+    const budget = await budgetService.update({ id, ...input });
     res.status(200).json(budget);
   }
 
