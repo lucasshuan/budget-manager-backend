@@ -8,7 +8,8 @@ interface TokenPayload extends jwt.JwtPayload {
 
 function authMiddleware(req: Request, res: Response, next: NextFunction) {
   if (!req.headers.authorization) {
-    return res.status(401).json({ error: "Token não encontrado" });
+    res.status(401).json({ error: "Token não encontrado" });
+    return;
   }
 
   const token = req.headers.authorization.split(" ")[1];
@@ -18,11 +19,13 @@ function authMiddleware(req: Request, res: Response, next: NextFunction) {
   ) as TokenPayload;
 
   if (!decoded || !decoded.id || !decoded.email) {
-    return res.status(401).json({ error: "Token inválido" });
+    res.status(401).json({ error: "Token inválido" });
+    return;
   }
 
   if (decoded.exp && decoded.exp < Date.now() / 1000) {
-    return res.status(401).json({ error: "Token expirado" });
+    res.status(401).json({ error: "Token expirado" });
+    return;
   }
 
   req.user = {

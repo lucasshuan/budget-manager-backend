@@ -14,12 +14,13 @@ datasource db {
 }
 
 model User {
-  id           Int         @id @default(autoincrement())
-  email        String      @unique
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
   passwordHash String
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @default(now()) @updatedAt
-  Component    Component[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now()) @updatedAt
+
+  Component Component[]
 
   @@map("users")
 }
@@ -31,7 +32,7 @@ model Customer {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 
-  jobs Job[]
+  budgets Budget[]
 
   @@map("customers")
 }
@@ -47,33 +48,35 @@ model Component {
 
   user User @relation(fields: [userId], references: [id])
 
-  budgets Budget[]
+  expenditures Expenditure[]
 
   @@map("components")
 }
 
-model Budget {
+model Expenditure {
   id          Int      @id @default(autoincrement())
-  price       Float
   componentId Int
-  serviceId   Int
+  budgetId    Int
+  price       Float
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now()) @updatedAt
 
   component Component @relation(fields: [componentId], references: [id])
+  budget    Budget    @relation(fields: [budgetId], references: [id])
 
-  @@map("budgets")
+  @@map("expenditures")
 }
 
-model Job {
+model Budget {
   id         Int      @id @default(autoincrement())
-  finished   Boolean
-  userId     Int
+  accepted   Boolean?
   customerId Int
   createdAt  DateTime @default(now())
   updatedAt  DateTime @default(now()) @updatedAt
 
   customer Customer @relation(fields: [customerId], references: [id])
 
-  @@map("jobs")
+  expenditures Expenditure[]
+
+  @@map("budgets")
 }
