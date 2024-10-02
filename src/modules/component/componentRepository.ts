@@ -1,4 +1,5 @@
 import { prisma } from "../../database";
+import { ICreateComponentArgs, IUpdateComponentArgs } from "./componentModel";
 
 class ComponentRepository {
   async listByUserId(userId: number) {
@@ -9,11 +10,11 @@ class ComponentRepository {
     return prisma.component.findUnique({ where: { id } });
   }
 
-  async create(data: any) {
+  async create(data: ICreateComponentArgs) {
     return prisma.component.create({ data });
   }
 
-  async update({ id, ...data }: any) {
+  async update({ id, ...data }: IUpdateComponentArgs) {
     return prisma.component.update({
       where: { id },
       data,
