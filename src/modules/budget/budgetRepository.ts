@@ -91,6 +91,10 @@ class BudgetRepository {
   async update({ id, ...data }: IUpdateBudgetArgs) {
     return prisma.budget.update({ where: { id }, data });
   }
+
+  async delete(id: number) {
+    return prisma.budget.delete({ where: { id } });
+  }
 }
 
 export default new BudgetRepository();

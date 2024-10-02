@@ -37,6 +37,11 @@ class BudgetService {
     const budget = await budgetRepository.update(input);
     return budget;
   }
+
+  async delete(id: number) {
+    const budget = await budgetRepository.delete(id);
+    return budget;
+  }
 }
 
 export default new BudgetService();

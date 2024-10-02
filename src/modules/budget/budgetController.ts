@@ -29,6 +29,12 @@ class BudgetController {
     const budget = await budgetService.update(input);
     res.status(200).json(budget);
   }
+
+  async delete(req: Request, res: Response) {
+    const id = await idJoi.validateAsync(req.params.id);
+    const budget = await budgetService.delete(id);
+    res.status(200).json(budget);
+  }
 }
 
 export default new BudgetController();
