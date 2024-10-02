@@ -9,7 +9,9 @@ export function Route(handler: RouterHandler): RequestHandler {
     try {
       await handler(req, res);
     } catch (err: any) {
+      console.log(err);
       if (err instanceof CustomError) {
+        console.log(err);
         res.status(err.status).json({ message: err.message });
         return;
       } else if (err instanceof Joi.ValidationError) {
