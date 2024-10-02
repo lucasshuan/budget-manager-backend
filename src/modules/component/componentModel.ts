@@ -1,3 +1,5 @@
+import { Component } from "@prisma/client";
+
 export interface ICreateComponentDTO {
   name: string;
   description?: string;

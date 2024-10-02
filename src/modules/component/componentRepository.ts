@@ -14,7 +14,10 @@ class ComponentRepository {
   }
 
   async update({ id, ...data }: any) {
-    return prisma.component.update({ where: { id }, data });
+    return prisma.component.update({
+      where: { id },
+      data,
+    });
   }
 
   async delete(id: number) {
