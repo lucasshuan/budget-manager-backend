@@ -8,6 +8,18 @@ export const createBudgetSchema = Joi.object({
     "number.integer": "'name' deve ser um número inteiro",
     "any.required": "'name' é obrigatório",
   }),
+  expenditures: Joi.array().items({
+    componentId: idJoi.required().messages({
+      "number.base": "'componentId' deve ser um número",
+      "number.integer": "'componentId' deve ser um número inteiro",
+      "any.required": "'componentId' é obrigatório",
+    }),
+    quantity: Joi.number().required().messages({
+      "number.base": "'quantity' deve ser um número",
+      "number.integer": "'quantity' deve ser um número inteiro",
+      "any.required": "'quantity' é obrigatório",
+    }),
+  }),
 });
 
 export const updateBudgetSchema = Joi.object({

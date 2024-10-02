@@ -1,5 +1,4 @@
 import { Budget } from "@prisma/client";
-import { ICreateExpenditureDTO } from "../expenditure/expenditureModel";
 
 export enum BudgetStatus {
   PENDING = "Pendente",
@@ -23,7 +22,5 @@ export interface IUpdateBudgetDTO {
   id: number;
   status: BudgetStatus;
 }
-
-export type ICreateBudgetArgs = Pick<Budget, "customerId">;
 
 export type IUpdateBudgetArgs = Pick<Budget, "id" | "status">;

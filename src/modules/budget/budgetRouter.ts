@@ -4,7 +4,8 @@ import budgetController from "./budgetController";
 
 const budgetRouter = Router();
 
-budgetRouter.get("/user/:userId", Route(budgetController.listByUserId));
+budgetRouter.get("/", Route(budgetController.listByUserId));
+budgetRouter.get("/:id", Route(budgetController.findById));
 budgetRouter.post("/", Route(budgetController.create));
 budgetRouter.put("/:id", Route(budgetController.update));
 
