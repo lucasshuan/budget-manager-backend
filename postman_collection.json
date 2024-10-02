@@ -31,7 +31,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"rafinhagomes@gmail.com\",\r\n    \"password\": \"myname12\"\r\n}",
+							"raw": "{\r\n    \"email\": \"jeangomes@gmail.com\",\r\n    \"password\": \"myname12\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -80,7 +80,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"rafinhagomes@gmail.com\",\r\n    \"password\": \"myname12\"\r\n}",
+							"raw": "{\r\n    \"email\": \"jeangomes@gmail.com\",\r\n    \"password\": \"myname12\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -183,7 +183,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"odeio esse caaaara mentira ele é legal\"\r\n}",
+							"raw": "{\r\n    \"name\": \"daniel o cliente babaca\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -535,7 +535,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "2"
+									"value": "4"
 								}
 							]
 						}
@@ -559,7 +559,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"customerId\": 4,\r\n    \"expenditures\": [\r\n        {\r\n            \"componentId\": 1,\r\n            \"quantity\": 3\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"customerId\": 6,\r\n    \"expenditures\": [\r\n        {\r\n            \"componentId\": 2,\r\n            \"quantity\": 2\r\n        },\r\n        {\r\n            \"componentId\": 3,\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -573,6 +573,167 @@
 							],
 							"path": [
 								"budgets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Budget",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer {{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": \"Aceito\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/budgets/:id",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"budgets",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Budget",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer {{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customerId\": 1,\r\n    \"expenditures\": [\r\n        {\r\n            \"componentId\": 2,\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/budgets/:id",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"budgets",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Expenditure",
+			"item": [
+				{
+					"name": "Create Expenditure",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer {{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"componentId\": 3,\r\n    \"budgetId\": 4,\r\n    \"quantity\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/expenditures",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"expenditures"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Expenditure",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer {{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{apiUrl}}/expenditures/:id",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"expenditures",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "4"
+								}
 							]
 						}
 					},
