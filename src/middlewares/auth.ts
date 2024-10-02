@@ -11,9 +11,11 @@ function authMiddleware(req: Request, res: Response, next: NextFunction) {
     return res.status(401).json({ error: "Token não encontrado" });
   }
 
-  const secret = process.env.JWT_SECRET || "secret";
   const token = req.headers.authorization.split(" ")[1];
-  const decoded = jwt.verify(token, secret) as TokenPayload;
+  const decoded = jwt.verify(
+    token,
+    String(process.env.JWT_SECRET)
+  ) as TokenPayload;
 
   if (!decoded || !decoded.id || !decoded.email) {
     return res.status(401).json({ error: "Token inválido" });

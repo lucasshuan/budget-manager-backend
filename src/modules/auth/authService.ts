@@ -8,15 +8,11 @@ class AuthService {
   async login({ email, password }: LoginDTO) {
     const user = await userService.findByEmail(email);
 
-    if (!user) throw new CustomError(401, "Usuário ou senha inválido");
-
     const passwordMatch = await bcrypt.compare(password, user.passwordHash);
-
     if (!passwordMatch) throw new CustomError(401, "Usuário ou senha inválido");
 
     const payload = { id: user.id, email: user.email };
-    const secret = process.env.JWT_SECRET ?? "";
-    const token = jwt.sign(payload, secret, {
+    const token = jwt.sign(payload, String(process.env.JWT_SECRET), {
       expiresIn: "1d",
     });
 

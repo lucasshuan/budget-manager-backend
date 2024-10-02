@@ -1,7 +1,6 @@
 import { Request, RequestHandler, Response } from "express";
 import { CustomError } from "./error";
 import Joi from "joi";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 type RouterHandler = (req: Request, res: Response) => Promise<any>;
 
@@ -14,9 +13,6 @@ export function Route(handler: RouterHandler): RequestHandler {
         res.status(err.status).json({ message: err.message });
         return;
       } else if (err instanceof Joi.ValidationError) {
-        res.status(400).json({ message: err.message });
-        return;
-      } else if (err instanceof PrismaClientKnownRequestError) {
         res.status(400).json({ message: err.message });
         return;
       }
