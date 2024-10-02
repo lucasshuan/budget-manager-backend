@@ -2,6 +2,7 @@ import { prisma } from "../../database";
 import { CustomError } from "../../utils/error";
 import {
   BudgetStatus,
+  IAcceptBudgetDTO,
   ICreateBudgetDTO,
   IUpdateBudgetArgs,
 } from "./budgetModel";
@@ -28,13 +29,22 @@ class BudgetRepository {
   async findById(id: number) {
     return prisma.budget.findUnique({
       where: { id },
-      include: { customer: true, expenditures: true },
+      include: {
+        customer: true,
+        expenditures: {
+          include: {
+            component: true,
+          },
+        },
+      },
     });
   }
 
   async create({ customerId, expenditures }: ICreateBudgetDTO) {
-    const budget = await prisma.budget.create({
+    return prisma.budget.create({
       data: {
+        customerId,
+        status: BudgetStatus.PENDING,
         expenditures: {
           createMany: {
             data: expenditures,
@@ -44,32 +54,38 @@ class BudgetRepository {
     });
   }
 
-  async accept() {
+  async accept({ id }: IAcceptBudgetDTO) {
     const budget = await prisma.$transaction(async (tx) => {
-      const newBudget = await tx.budget.create({
+      const budget = await tx.budget.update({
+        where: {
+          id,
+        },
         data: {
-          status: BudgetStatus.PENDING,
-          customerId,
+          status: BudgetStatus.ACCEPTED,
+        },
+        include: {
+          expenditures: true,
         },
       });
-      for (const expenditure of expenditures) {
+      for (const expenditure of budget.expenditures) {
         const component = await tx.component.findUnique({
           where: { id: expenditure.componentId },
         });
         if (!component) {
           throw new CustomError(404, "Componente não encontrado");
         }
-        await tx.expenditure.create({
+        await tx.expenditure.update({
+          where: {
+            id: expenditure.id,
+          },
           data: {
             price: component.price,
-            ...expenditure,
-            budgetId: newBudget.id,
           },
         });
       }
-      return newBudget;
+      return budget;
     });
-    return prisma.budget.findUnique({ where: { id: budget.id } });
+    return budget;
   }
 
   async update({ id, ...data }: IUpdateBudgetArgs) {
